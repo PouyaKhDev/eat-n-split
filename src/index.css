@@ -18,7 +18,7 @@ html {
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   color: #495057;
   display: flex;
   align-items: center;
@@ -26,9 +26,11 @@ body {
 }
 
 .app {
+  max-width: 150rem;
   min-height: 66vh;
+  padding: 4rem;
   display: grid;
-  grid-template-columns: 34rem 44rem;
+  grid-template-columns: 1fr 1.5fr;
   column-gap: 4rem;
   align-items: start;
 }
@@ -46,6 +48,10 @@ body {
 
 .button:hover {
   background-color: var(--color-dark);
+}
+
+.sidebar {
+  width: 100%;
 }
 
 .sidebar ul {
@@ -118,7 +124,7 @@ form {
 }
 
 .form-add-friend {
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: 1fr 1fr;
   margin-bottom: 1.6rem;
   padding: 1.2rem;
 }
