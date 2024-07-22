@@ -21,8 +21,9 @@ function App() {
   };
 
   const handleSplitBill = function (balance) {
-    selectedFriend.balance += balance;
-    setSelectedFriend({});
+    setFriendsArr((fArr) =>
+      fArr.map((f) => (f.id === selectedFriend.id ? { ...f, balance } : f))
+    );
   };
 
   return (
@@ -155,7 +156,7 @@ function FormSplitBill({ selectedFriend, onSplitBill, onSelectFriend }) {
       className="form-split-bill"
       onSubmit={(e) => {
         e.preventDefault();
-        onSplitBill(friendExpense - yourExpense);
+        onSplitBill(whoPays === "user" ? -friendExpense : yourExpense);
         onSelectFriend(null);
       }}
     >
@@ -166,7 +167,7 @@ function FormSplitBill({ selectedFriend, onSplitBill, onSelectFriend }) {
         type="text"
         value={billVal}
         onChange={(e) => {
-          if (isNaN(+e.target.value)) return;
+          if (isNaN(+e.target.value) || e.target.value < 0) return;
           setBillVal(+e.target.value);
         }}
       />
@@ -176,7 +177,12 @@ function FormSplitBill({ selectedFriend, onSplitBill, onSelectFriend }) {
         type="text"
         value={yourExpense}
         onChange={(e) => {
-          if (isNaN(+e.target.value)) return;
+          if (
+            isNaN(+e.target.value) ||
+            e.target.value > billVal ||
+            e.target.value < 0
+          )
+            return;
           setYourExpense(+e.target.value);
         }}
       />
